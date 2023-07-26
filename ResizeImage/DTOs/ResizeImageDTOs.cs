@@ -28,14 +28,14 @@ namespace ResizeImage.DTOs
 
     public class ResizeImageOptionsDto
     {
-        [Required(ErrorMessage ="فایل را ارسال کنید")]
+        [Required(ErrorMessage = "فایل را ارسال کنید")]
         public IFormFile File  { get; set; }
         public int? MaxHeight { get; set; } = 150;
         public int? MaxWeidth { get; set; } = 150;
 
-        //[MaxLength(100 , ErrorMessage ="محدوده این عدد  بین 1 تا 100 است ")]
-        //[MinLength(1 , ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
-        public int Quality { get; set; }
+        [MaxLength(100, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
+        [MinLength(1, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
+        public int Quality { get; set; } = 50;
     }
 
 }
