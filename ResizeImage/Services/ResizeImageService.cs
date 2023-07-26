@@ -60,7 +60,7 @@ namespace ResizeImage.Services
         }
 
 
-        public RatioDto ResizeRation(ResizeImageOptionsDto options)
+        private RatioDto ResizeRation(ResizeImageOptionsDto options)
         {
             RatioDto ration;
             var img = Image.Load(options.File.OpenReadStream());

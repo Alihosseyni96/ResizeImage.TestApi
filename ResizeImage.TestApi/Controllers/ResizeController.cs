@@ -17,16 +17,17 @@ namespace ResizeImage.TestApi.Controllers
         }
 
         [HttpPost]
-        public async Task<FileContentResult> ResizeImage(IFormFile req)
+        public async Task<FileContentResult> ResizeImage([FromForm]ResizeImageOptionsDto req)
         {
-            var res = await _resizeImageService.ResizeImage(new ResizeImageOptionsDto()
-            {
-                File = req,
-                MaxHeight = 100,
-                MaxWeidth = 100,
-                Quality = 50
-            });
-                return File(res.DocAsBytes, res.ContentType, false);
+            var res = await _resizeImageService.ResizeImage(req);
+            //var res = await _resizeImageService.ResizeImage(new ResizeImageOptionsDto()
+            //{
+            //    File = req,
+            //    MaxHeight = 100,
+            //    MaxWeidth = 100,
+            //    Quality = 50
+            //});
+            return File(res.DocAsBytes, res.ContentType, false);
         }
 
 
