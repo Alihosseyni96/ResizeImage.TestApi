@@ -1,4 +1,5 @@
 using ResizeImage.Services;
+using ResizeImage.Dependancy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<ResizeImageService>();
+builder.Services.AddImageResizer();
 
 var app = builder.Build();
 

@@ -26,7 +26,9 @@ namespace ResizeImage.TestApi.Controllers
                 MaxWeidth = 100,
                 Quality = 50
             });
-            return File(res.DocAsBytes, res.ContentType, false);
+                return File(res.DocAsBytes, res.ContentType, false);
         }
+
+
     }
 }

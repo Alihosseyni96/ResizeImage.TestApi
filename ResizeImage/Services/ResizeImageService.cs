@@ -15,34 +15,47 @@ namespace ResizeImage.Services
 
         public  async Task<DocumentResizeResultDto> ResizeImage(ResizeImageOptionsDto req)
         {
-            
-            var ration = ResizeRation(req);
-            var options = new ResizeOptions()
+            try
             {
-                Size = new Size(width: ration.Weidth, height: ration.Height),
-                Sampler = KnownResamplers.Lanczos3,
-                Compand = true,
-                Mode = ResizeMode.Stretch,
-                
-            };
-            ration.Image.Mutate(x => x.Resize(options));
+                var ration = ResizeRation(req);
+                var options = new ResizeOptions()
+                {
+                    Size = new Size(width: ration.Weidth, height: ration.Height),
+                    Sampler = KnownResamplers.Lanczos3,
+                    Compand = true,
+                    Mode = ResizeMode.Stretch,
 
-            var encoder = new JpegEncoder()
-            {
-                Quality = req.Quality
-                
-            };
+                };
+                ration.Image.Mutate(x => x.Resize(options));
 
-            byte[] imageAsByteArray;
+                var encoder = new JpegEncoder()
+                {
+                    Quality = req.Quality
 
-            using (var ms = new MemoryStream())
-            {
-                
-                ration.Image.Save(ms, encoder);
-                ms.Position = 0;
-                imageAsByteArray = ms.ToArray();
+                };
+
+                byte[] imageAsByteArray;
+
+                using (var ms = new MemoryStream())
+                {
+
+                    ration.Image.Save(ms, encoder);
+                    ms.Position = 0;
+                    imageAsByteArray = ms.ToArray();
+                }
+                return new DocumentResizeResultDto() { ContentType = req.File.ContentType, DocAsBytes = imageAsByteArray };
+
             }
-            return new DocumentResizeResultDto() { ContentType = req.File.ContentType , DocAsBytes = imageAsByteArray };
+            catch (Exception )
+            {
+                return new DocumentResizeResultDto()
+                {
+                    ContentType = null,
+                    DocAsBytes = null,
+                    IsSuccessful = false,
+                    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
+                };
+            }
 
         }
 

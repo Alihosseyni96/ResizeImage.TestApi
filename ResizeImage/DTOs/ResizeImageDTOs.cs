@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,8 +20,10 @@ namespace ResizeImage.DTOs
 
     public class DocumentResizeResultDto
     {
-        public byte[] DocAsBytes { get; set; }
-        public string? ContentType { get; set; }
+        public byte[]? DocAsBytes { get; set; } = null;
+        public string? ContentType { get; set; } = null;
+        public bool? IsSuccessful { get; set; } = true;
+        public string? ErrorMessage { get; set; } = null;
     }
 
     public class ResizeImageOptionsDto
@@ -33,8 +36,7 @@ namespace ResizeImage.DTOs
         [MaxLength(100 , ErrorMessage ="محدوده این عدد  بین 1 تا 100 است ")]
         [MinLength(1 , ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
         public int Quality { get; set; }
-
-
     }
+
 }
 
