@@ -10,13 +10,6 @@ using System.Threading.Tasks;
 
 namespace ResizeImage.DTOs
 {
-    public class RatioDto
-    {
-        public int Height { get; set; }
-        public int Weidth { get; set; }
-        public Image Image { get; set; }
-        public string? ContentType { get; set; }
-    }
 
     public class DocumentResizeResultDto
     {
@@ -26,20 +19,36 @@ namespace ResizeImage.DTOs
         public string? ErrorMessage { get; set; } = null;
     }
 
-    public class ResizeImageOptionsDto
+    public class ResizeSteamImageDto
     {
         [Required(ErrorMessage = "فایل را ارسال کنید")]
         public Stream FileAsStream { get; set; }
         public int? MaxHeight { get; set; } = 150;
         public int? MaxWeidth { get; set; } = 150;
-        public string  ContentType { get; set; }
+        public string ContentType { get; set; }
 
         [MaxLength(100, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
         [MinLength(1, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
         public int Quality { get; set; } = 50;
+
     }
 
-    public class ResizeFormFileOptionDto
+
+    public class ResizeByteArrayImageDto
+    {
+        [Required(ErrorMessage = "فایل را ارسال کنید")]
+        public byte[] File { get; set; }
+        public int? MaxHeight { get; set; } = 150;
+        public int? MaxWeidth { get; set; } = 150;
+        public string ContentType { get; set; }
+
+        [MaxLength(100, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
+        [MinLength(1, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
+        public int Quality { get; set; } = 50;
+
+    }
+
+    public class ResizeFormFileImageDto
     {
         [Required(ErrorMessage = "فایل را ارسال کنید")]
         public IFormFile File { get; set; }
@@ -51,6 +60,31 @@ namespace ResizeImage.DTOs
         public int Quality { get; set; } = 50;
 
     }
+
+
+
+    public class ResizeImageOptionsDto
+    {
+        [Required(ErrorMessage = "فایل را ارسال کنید")]
+        public Stream FileAsStream { get; set; }
+        public int? MaxHeight { get; set; } = 150;
+        public int? MaxWeidth { get; set; } = 150;
+        public string ContentType { get; set; }
+
+        [MaxLength(100, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
+        [MinLength(1, ErrorMessage = "محدوده این عدد  بین 1 تا 100 است ")]
+        public int Quality { get; set; } = 50;
+    }
+
+    public class RatioDto
+    {
+        public int Height { get; set; }
+        public int Weidth { get; set; }
+        public Image Image { get; set; }
+        public string? ContentType { get; set; }
+    }
+
+
 
 }
 
