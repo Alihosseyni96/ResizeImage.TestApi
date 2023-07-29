@@ -43,7 +43,7 @@ namespace ResizeImage.Services
                     ms.Position = 0;
                     imageAsByteArray = ms.ToArray();
                 }
-                return new DocumentResizeResultDto() { ContentType = req.File.ContentType, DocAsBytes = imageAsByteArray };
+                return new DocumentResizeResultDto() { ContentType = req.ContentType, DocAsBytes = imageAsByteArray };
 
             }
             catch (Exception )
@@ -60,10 +60,13 @@ namespace ResizeImage.Services
         }
 
 
+
+
         private RatioDto ResizeRation(ResizeImageOptionsDto options)
         {
             RatioDto ration;
-            var img = Image.Load(options.File.OpenReadStream());
+
+            var img = Image.Load(options.FileAsStream);
 
 
             if (img.Width > options.MaxWeidth || img.Height > options.MaxHeight)
@@ -74,11 +77,11 @@ namespace ResizeImage.Services
                 //double ratio = Math.Max(widthRation, heightRation);
                 int newWidth = (int)(img.Width / widthRation);
                 int newHeight = (int)(img.Height / heightRation);
-                ration = new RatioDto() { Height = newHeight, Weidth = newWidth, Image = img  , ContentType = options.File.ContentType};
+                ration = new RatioDto() { Height = newHeight, Weidth = newWidth, Image = img  , ContentType = options.ContentType};
             }
             else
             {
-                ration = new RatioDto() { Height = img.Height, Weidth = img.Width, Image = img, ContentType = options.File.ContentType };
+                ration = new RatioDto() { Height = img.Height, Weidth = img.Width, Image = img, ContentType = options.ContentType };
             }
 
             return ration;
