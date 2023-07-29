@@ -59,6 +59,61 @@ namespace ResizeImage.Services
 
         }
 
+        public async Task<DocumentResizeResultDto> ResizeImage(ResizeFormFileOptionDto req)
+        {
+            try
+            {
+                var s = req.File.OpenReadStream();
+                var ration = ResizeRation(new ResizeImageOptionsDto()
+                {
+                    ContentType = req.File.ContentType,
+                    FileAsStream = s,
+                    MaxHeight = req.MaxHeight,
+                    MaxWeidth = req.MaxWeidth,
+                });
+                s.Dispose();
+                var options = new ResizeOptions()
+                {
+                    Size = new Size(width: ration.Weidth, height: ration.Height),
+                    Sampler = KnownResamplers.Lanczos3,
+                    Compand = true,
+                    Mode = ResizeMode.Stretch,
+
+                };
+                ration.Image.Mutate(x => x.Resize(options));
+
+                var encoder = new JpegEncoder()
+                {
+                    Quality = req.Quality
+
+                };
+
+                byte[] imageAsByteArray;
+
+                using (var ms = new MemoryStream())
+                {
+
+                    ration.Image.Save(ms, encoder);
+                    ms.Position = 0;
+                    imageAsByteArray = ms.ToArray();
+                }
+                return new DocumentResizeResultDto() { ContentType = req.File.ContentType, DocAsBytes = imageAsByteArray };
+
+            }
+            catch (Exception)
+            {
+                return new DocumentResizeResultDto()
+                {
+                    ContentType = null,
+                    DocAsBytes = null,
+                    IsSuccessful = false,
+                    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
+                };
+            }
+        }
+
+
+
 
 
 

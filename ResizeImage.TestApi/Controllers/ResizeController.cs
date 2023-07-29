@@ -19,8 +19,6 @@ namespace ResizeImage.TestApi.Controllers
         [HttpPost]
         public async Task<FileContentResult> ResizeImage(IFormFile filefile)
         {
-
-
             var s = filefile.OpenReadStream();
 
             var res = await _resizeImageService.ResizeImage(new ResizeImageOptionsDto()
@@ -33,6 +31,19 @@ namespace ResizeImage.TestApi.Controllers
             });
 
             s.Dispose();
+            return File(res.DocAsBytes, res.ContentType, false);
+        }
+
+        [HttpPost]
+        public async Task<FileContentResult> ResizeImageFormFile(IFormFile file)
+        {
+            var res = await _resizeImageService.ResizeImage(new ResizeFormFileOptionDto()
+            {
+                File = file,
+                MaxHeight = 50,
+                MaxWeidth = 50,
+                Quality = 45
+            });
             return File(res.DocAsBytes, res.ContentType, false);
         }
 
