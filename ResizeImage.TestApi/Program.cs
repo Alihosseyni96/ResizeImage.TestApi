@@ -1,5 +1,6 @@
 using ResizeImage.Services;
 using ResizeImage.Dependancy;
+using ResizeImage.TestApi.ExceptionHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddImageResizer();
 
+builder.Services.AddControllers(x =>
+{
+    x.Filters.Add<HttpExceptionHandler>();
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

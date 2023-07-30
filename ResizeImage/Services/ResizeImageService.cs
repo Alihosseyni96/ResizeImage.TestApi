@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ResizeImage.DTOs;
+using ResizeImage.Exception;
 using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using System;
@@ -53,15 +54,16 @@ namespace ResizeImage.Services
                 return new DocumentResizeResultDto() { ContentType = req.ContentType, DocAsBytes = imageAsByteArray };
 
             }
-            catch (Exception)
+            catch (System.Exception)
             {
-                return new DocumentResizeResultDto()
-                {
-                    ContentType = null,
-                    DocAsBytes = null,
-                    IsSuccessful = false,
-                    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
-                };
+                throw new ResizeException(ResizeExceptionCode.BusinessStatucCode, ResizeExceptionMessage.UnsupportedType);
+                //return new DocumentResizeResultDto()
+                //{
+                //    ContentType = null,
+                //    DocAsBytes = null,
+                //    IsSuccessful = false,
+                //    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
+                //};
             }
 
         }
@@ -107,15 +109,17 @@ namespace ResizeImage.Services
                 return new DocumentResizeResultDto() { ContentType = req.File.ContentType, DocAsBytes = imageAsByteArray };
 
             }
-            catch (Exception)
+            catch (System.Exception)
             {
-                return new DocumentResizeResultDto()
-                {
-                    ContentType = null,
-                    DocAsBytes = null,
-                    IsSuccessful = false,
-                    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
-                };
+                throw new ResizeException(ResizeExceptionCode.BusinessStatucCode, ResizeExceptionMessage.UnsupportedType);
+
+                //return new DocumentResizeResultDto()
+                //{
+                //    ContentType = null,
+                //    DocAsBytes = null,
+                //    IsSuccessful = false,
+                //    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
+                //};
             }
         }
 
@@ -164,15 +168,17 @@ namespace ResizeImage.Services
                 return new DocumentResizeResultDto() { ContentType = req.ContentType, DocAsBytes = imageAsByteArray };
 
             }
-            catch (Exception)
+            catch (System.Exception)
             {
-                return new DocumentResizeResultDto()
-                {
-                    ContentType = null,
-                    DocAsBytes = null,
-                    IsSuccessful = false,
-                    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
-                };
+                throw new ResizeException(ResizeExceptionCode.BusinessStatucCode, ResizeExceptionMessage.UnsupportedType);
+
+                //return new DocumentResizeResultDto()
+                //{
+                //    ContentType = null,
+                //    DocAsBytes = null,
+                //    IsSuccessful = false,
+                //    ErrorMessage = "فایل ارسال شده عکس نمی باشد"
+                //};
             }
 
         }
